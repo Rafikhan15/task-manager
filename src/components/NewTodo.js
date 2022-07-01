@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-
+import { useForm } from "react-hook-form";
 import style from "./newtodo.module.css";
+
 const NewTodo = (props) => {
-  const [todo, setTodo] = useState({ title: "", desc: "" });
-  const { title, desc } = todo;
+  const [todo, setTodo] = useState({ title: "", description: "" });
+  const { title, description } = todo;
+  const { register, handleSubmit } = useForm();
+  const [Refresh, setRefresh] = React.useState(false);
+
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -12,33 +16,37 @@ const NewTodo = (props) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    props.onAddTodo(todo);
-    setTodo({ title: "", desc: "" });
+  const onSubmit = data => {
+    console.log(data);
+    const url = `http://localhost:5000/task`;
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        setRefresh(!Refresh);
+      })
   };
 
   return (
-    <form className={style.form} onSubmit={handleSubmit}>
+    <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={style["form-field"]}>
         <label htmlFor="title">Title: </label>
         <input
-          type="text"
-          id="title"
-          name="title"
-          value={title}
-          onChange={handleChange}
+
+          {...register("title", { required: true, maxLength: 40 })}
           className="text-red-400"
         />
       </div>
       <div className={style["form-field"]}>
-        <label htmlFor="desc">Description: </label>
+        <label htmlFor="description">Description: </label>
         <textarea
-          type="text"
-          id="desc"
-          name="desc"
-          value={desc}
-          onChange={handleChange}
+          {...register("description")}
           className="text-red-400"
         />
       </div>

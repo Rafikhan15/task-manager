@@ -28,14 +28,14 @@ const Home = () => {
       {/* <h1 className="text-red-600">Todo App</h1> */}
       <NewTodo onAddTodo={handleAddTodo} />
       {todos && <Todos todos={todos} onRemoveTodo={handleRemoveTodo} />}
-      <button
+      {/* <button
         className={style.btn}
         onClick={() => {
           setTodos([]);
         }}
       >
         Clear All todos
-      </button>
+      </button> */}
     </div>
   );
 };
