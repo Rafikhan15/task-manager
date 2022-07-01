@@ -19,7 +19,7 @@ const Todo = ({ task }) => {
   const handleDelete = id => {
     const proceed = window.confirm('Are you sure?');
     if (proceed) {
-      const url = `http://localhost:5000/task/${id}`;
+      const url = `https://red-marks-53727.herokuapp.com/task/${id}`;
       fetch(url, {
         method: 'DELETE'
       })

@@ -18,7 +18,7 @@ const NewTodo = (props) => {
 
   const onSubmit = data => {
     console.log(data);
-    const url = `http://localhost:5000/task`;
+    const url = `https://red-marks-53727.herokuapp.com/task`;
     fetch(url, {
       method: 'POST',
       headers: {

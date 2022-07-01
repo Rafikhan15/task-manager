@@ -6,7 +6,7 @@ const CompleteTask = () => {
     const [Refresh, setRefresh] = React.useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:5000/task')
+        fetch('https://red-marks-53727.herokuapp.com/task')
             .then(res => res.json())
             .then(data => setTasks(data));
         setRefresh(!Refresh);
